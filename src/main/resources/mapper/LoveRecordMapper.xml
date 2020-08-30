@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhazhahui.web.dao.LoveRecordMapper">
+  <select id="selectAll" resultType="com.zhazhahui.web.model.LoveRecord">
+    select * from love_record
+  </select>
+  
+  <insert id="newLoveRecord" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into love_record (record_date, record_level, description, is_deleted, create_by, create_at) values
+    (#{loveRecord.recordDate}, #{loveRecord.recordLevel}, #{loveRecord.description}, #{loveRecord.isDeleted}, #{loveRecord.createBy}, now())
+  </insert>
+</mapper>

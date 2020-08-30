@@ -1,0 +1,30 @@
+sharding:
+  jdbc:
+    data-sources:
+      ## 配置主数据库
+      ds_master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        jdbc-url: jdbc:mysql://localhost:3306/web?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+        username: root
+        password: zhazha
+        driver-class-name: com.mysql.jdbc.Driver
+      ## 配置从数据库
+      ds_slaver:
+        type: com.alibaba.druid.pool.DruidDataSource
+        jdbc-url: jdbc:mysql://localhost:3306/web_slaver?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+        username: root
+        password: zhazha
+        driver-class-name: com.mysql.jdbc.Driver
+    master-slave-rule:
+      ##  配置从库选择策略，提供轮询与随机
+      load-balance-algorithm-type: round_robin
+      slave-data-source-names: ds_slaver
+      name: ds_ms
+      master-data-source-name: ds_master
+
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.zhazhahui.web.model
+
+server:
+  port: 8989
